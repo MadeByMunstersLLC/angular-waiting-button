@@ -1,7 +1,10 @@
 {
   "name": "angular-waiting-button",
   "description": "Angular 1 Waiting Button",
-  "main": "dist/waiting-button.js",
+  "main": [
+    "dist/angular-waiting-button.js",
+    "dist/angular-waiting-button.scss",
+  ],
   "authors": [
     "Clay Carpenter <claycarpenter@gmail.com>"
   ],
