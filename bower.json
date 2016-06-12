@@ -1,0 +1,27 @@
+{
+  "name": "angular-waiting-button",
+  "description": "Angular 1 Waiting Button",
+  "main": "dist/waiting-button.js",
+  "authors": [
+    "Clay Carpenter <claycarpenter@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "button",
+    "promise"
+  ],
+  "homepage": "https://github.com/MadeByMunstersLLC/angular-waiting-button",
+  "dependencies": {
+    "angular": "^1.4.0"
+   },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "gulpfile.js",
+    "node_modules",
+    "src",
+    "test",
+    "tests"
+  ]
+}
