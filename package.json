@@ -1,8 +1,8 @@
 {
-  "name": "work",
+  "name": "angular-waiting-button",
   "version": "1.0.0",
-  "description": "Bower Test Repo",
-  "main": "index.js",
+  "description": "Angular 1 Waiting Button",
+  "main": "dist/waiting-button.js",
   "dependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
@@ -23,13 +23,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/claycarpenter/bower-test.git"
+    "url": "git+https://github.com/MadeByMunstersLLC/angular-waiting-button.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/claycarpenter/bower-test/issues"
+    "url": "https://github.com/MadeByMunstersLLC/angular-waiting-button/issues"
   },
-  "homepage": "https://github.com/claycarpenter/bower-test#readme"
+  "homepage": "https://github.com/MadeByMunstersLLC/angular-waiting-button#readme"
 }
