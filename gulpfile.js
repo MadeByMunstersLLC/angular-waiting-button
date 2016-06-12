@@ -26,7 +26,7 @@ const bundler = browserify(`${Directories.Source}/js/waiting-button.module.js`, 
 gulp.task('browserify-js', function() {
   return bundler.bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); })
-    .pipe(source('waiting-button.js'))
+    .pipe(source('angular-waiting-button.js'))
     .pipe(buffer())
     .pipe(gulp.dest(Directories.Distributable));
 });
