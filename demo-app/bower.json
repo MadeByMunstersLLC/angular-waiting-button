@@ -1,0 +1,21 @@
+{
+  "name": "demo-app",
+  "homepage": "https://github.com/MadeByMunstersLLC/angular-waiting-button",
+  "authors": [
+    "Clay Carpenter <claycarpenter@gmail.com>"
+  ],
+  "description": "Angular Waiting Button demo app",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-waiting-button": "../#^0.0.3"
+  }
+}
