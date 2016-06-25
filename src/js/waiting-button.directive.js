@@ -79,16 +79,21 @@ export function mbmWaitingButton() {
         actionQ
           .then(function() {
             waitingButtonCtrl.updateState('success');
+
+            clearWaiting();
           })
           .catch(function() {
             waitingButtonCtrl.updateState('error');
-          })
-          .finally(function() {
-            // Clear the waiting style and flag.
-            isWaiting = false;
-            element.removeClass(waitingClass);
+
+            clearWaiting();
           });
       });
+
+      function clearWaiting() {
+        // Clear the waiting style and flag.
+        isWaiting = false;
+        element.removeClass(waitingClass);
+      }
     }
   }
 }
