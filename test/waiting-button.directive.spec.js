@@ -1,17 +1,10 @@
-import {testFunction} from './test.import';
 const angular = require('angular'),
       angularMock = require('angular-mocks');
 
 
-describe('Test component', () => {
+describe('mbmWaitingButton', () => {
   beforeEach(() => {
     angular.mock.module('mbm.waitingButton');
-  });
-
-  it('has a dummy test', () => {
-    const result = testFunction();
-
-    expect(result).toEqual(42);
   });
 
   it('should compile this directive', () => {

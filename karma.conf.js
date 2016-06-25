@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       './src/js/waiting-button.module.js',
-      './test/test.spec.js'
+      './test/waiting-button.directive.spec.js'
     ],
 
 
