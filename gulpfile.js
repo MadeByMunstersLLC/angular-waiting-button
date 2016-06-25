@@ -21,7 +21,8 @@ const Sources = {
 };
 
 const bundler = browserify(`${Directories.Source}/js/waiting-button.module.js`, {debug: true})
-  .transform(babelify, {presets: ["es2015"]});
+  .transform(babelify, {presets: ["es2015"]})
+  .external('angular');
 
 gulp.task('browserify-js', function() {
   return bundler.bundle()

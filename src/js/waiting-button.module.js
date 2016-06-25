@@ -1,3 +1,4 @@
+const angular = require('angular');
 import {mbmWaitingButton} from './waiting-button.directive';
 import {mbmWaitingButtonText} from './waiting-button-text.directive';
 
