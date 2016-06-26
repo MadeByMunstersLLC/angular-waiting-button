@@ -29,9 +29,7 @@ export class WaitingButtonDirective {
       return $scope.isExternalEnabled && !isWaiting;
     }
 
-    $scope.$watch('ctrl$.getState()', function(newState) {
-      updateElementState(newState);
-    });
+    $scope.ctrl$.addStateChangeListener(updateElementState);
 
     // Pick up initial state
     updateElementState($scope.ctrl$.getState());
@@ -107,17 +105,11 @@ export class WaitingButtonDirective {
 export class WaitingButtonController {
   constructor($scope) {
     var vm = this,
-        registeredTexts = [],
+        stateChangeListeners = [],
         currentState = 'init';
 
-    vm.registerText = function registerText(waitingButtonTextListener) {
-      registeredTexts.push(waitingButtonTextListener);
-    };
-
-    vm.updateState = function updateState(newState) {
-      currentState = newState;
-
-      notifyStateChange(currentState);
+    vm.addStateChangeListener = function addStateChangeListener(newListener) {
+       stateChangeListeners.push(newListener);
     };
 
     vm.getState = function getState() {
@@ -133,21 +125,27 @@ export class WaitingButtonController {
       // Execute the action, and capture the (expected) returned promise.
       var actionQ = $scope.actionReceiver();
 
-      vm.updateState('wait');
+      updateState('wait');
 
       actionQ
-      .then(function() {
-        vm.updateState('success');
-      })
-      .catch(function() {
-        vm.updateState('error');
-      });
+        .then(function() {
+          updateState('success');
+        })
+        .catch(function() {
+          updateState('error');
+        });
+    };
+
+    updateState(currentState);
+
+    function updateState(newState) {
+      currentState = newState;
+
+      notifyStateChange(currentState);
     }
 
-    vm.updateState('init');
-
     function notifyStateChange(newState) {
-      registeredTexts.forEach(function(waitingButtonTextListener) {
+      stateChangeListeners.forEach(waitingButtonTextListener => {
         waitingButtonTextListener(newState);
       });
     }
