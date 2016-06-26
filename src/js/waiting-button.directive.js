@@ -1,5 +1,5 @@
 
-export class WaitingButtonFactory {
+export class WaitingButtonDirective {
   constructor() {
     this.restrict = 'A';
     this.require = 'mbmWaitingButton';
@@ -9,14 +9,14 @@ export class WaitingButtonFactory {
       waitingClass: '@?waitingButtonWaitingClass',
     };
     this.controller = ['$scope', WaitingButtonController];
-    this.link = WaitingButtonFactory.link;
+    this.link = WaitingButtonDirective.link;
   }
 
   static link($scope, element, attr, waitingButtonCtrl) {
     var isWaiting = false;
 
     // Start with the default waiting class
-    var waitingClass = 'mbm-waiting-button--waiting';
+    var waitingClass = WaitingButtonController.WAITING_CLASS;
 
     if (typeof $scope.waitingClass === 'string') {
       // Override the default if a custom waiting class has been provided.
@@ -76,7 +76,7 @@ export class WaitingButtonFactory {
   }
 }
 
-class WaitingButtonController {
+export class WaitingButtonController {
   constructor($scope) {
     var vm = this,
         registeredTexts = [],
@@ -103,3 +103,4 @@ class WaitingButtonController {
     }
   }
 }
+WaitingButtonController.WAITING_CLASS = 'mbm-waiting-button--waiting';

@@ -1,3 +1,4 @@
+import {WaitingButtonController} from '../src/js/waiting-button.directive';
 const angular = require('angular'),
       angularMock = require('angular-mocks');
 
@@ -28,13 +29,13 @@ describe('mbmWaitingButton', () => {
 
       // Verify that the element doesn't have the waiting-button loading class
       //  by default.
-      expect(element.hasClass('mbm-waiting-button--waiting')).toEqual(false);
+      expect(element.hasClass(WaitingButtonController.WAITING_CLASS)).toEqual(false);
 
       // Simulate click to enter "waiting" state
       element[0].click();
 
       // Verify that the element now has the waiting-button loading class.
-      expect(element.hasClass('mbm-waiting-button--waiting')).toEqual(true);
+      expect(element.hasClass(WaitingButtonController.WAITING_CLASS)).toEqual(true);
 
       // TODO: this functionality has yet to be implemented.
       // expect(element.prop('disabled')).toEqual(true);
@@ -47,7 +48,7 @@ describe('mbmWaitingButton', () => {
 
       // Verify that the element doesn't have the waiting-button loading class
       //  after the operation promise has resolved.
-      expect(element.hasClass('mbm-waiting-button--waiting')).toEqual(false);
+      expect(element.hasClass(WaitingButtonController.WAITING_CLASS)).toEqual(false);
     });
   });
 });
