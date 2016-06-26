@@ -7,7 +7,7 @@ describe('mbmWaitingButton', () => {
     angular.mock.module('mbm.waitingButton');
   });
 
-  it('should compile this directive', () => {
+  it('should toggle waiting class based on operation promise', () => {
     angular.mock.inject(($rootScope, $compile, $timeout, $q) => {
       // Build a Promise to represent an async operation
       const operationDeferred = $q.defer();
