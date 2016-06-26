@@ -1,94 +1,154 @@
 
-export function mbmWaitingButton() {
-  return {
-    restrict: 'A',
-    require: 'mbmWaitingButton',
-    scope: {
+export class WaitingButtonDirective {
+  constructor() {
+    this.restrict = 'A';
+    this.require = 'mbmWaitingButton';
+    this.scope = {
       actionReceiver: '&mbmWaitingButton',
       isExternalEnabled: '=?waitingButtonEnabled',
       waitingClass: '@?waitingButtonWaitingClass',
-    },
-    controller: ['$scope', function($scope) {
-      var vm = this,
-          registeredTexts = [],
-          currentState = 'init';
+    };
+    this.controller = ['$scope', WaitingButtonController];
+    this.controllerAs = 'ctrl$';
+    this.link = WaitingButtonDirective.link;
+  }
 
-      vm.registerText = function registerText(waitingButtonTextListener) {
-        registeredTexts.push(waitingButtonTextListener);
-      };
+  static link($scope, element, attr, waitingButtonCtrl) {
+    var isWaiting = false;
 
-      vm.updateState = function updateState(newState) {
-        currentState = newState;
+    // Start with the default waiting class
+    var waitingClass = determineWaitingClass();
 
-        notifyStateChange(currentState);
-      };
+    if (typeof $scope.isExternalEnabled === 'undefined') {
+      // No value provided for external button enabled attribute; assume
+      // button is always considered externally enabled.
+      $scope.isExternalEnabled = true;
+    }
 
-      vm.getState = function getState() {
-        return currentState;
-      };
+    $scope.isEnabled = function isEnabled() {
+      return $scope.isExternalEnabled && !isWaiting;
+    }
 
-      function notifyStateChange(newState) {
-        registeredTexts.forEach(function(waitingButtonTextListener) {
-          waitingButtonTextListener(newState);
-        });
+    $scope.ctrl$.addStateChangeListener(updateElementState);
+
+    // Pick up initial state
+    updateElementState($scope.ctrl$.getState());
+
+    $scope.$watch('isEnabled()', function(value) {
+      element.toggleClass('disabled', !value);
+    });
+
+    element.on('click touchstart', onClickHandler);
+
+    function updateElementState(newState) {
+      switch (newState) {
+        case 'init':
+          onStateInit();
+          break;
+        case 'wait':
+          onStateWait();
+          break;
+        case 'error':
+          onStateError();
+          break;
+        case 'success':
+          onStateSuccess();
+          break;
+        default:
+          // Should never get here; blow up if the state can't be parsed.
+          throw new Error('Unrecognized state');
       }
-    }],
-    link: function ($scope, element, attr, waitingButtonCtrl) {
-      var isWaiting = false;
+    }
 
-      // Start with the default waiting class
-      var waitingClass = 'mbm-waiting-button--waiting';
+    function onStateInit() {
+      clearWaiting();
+    }
+
+    function onStateWait() {
+      // Add waiting style.
+      element.addClass(waitingClass);
+    }
+
+    function onStateError() {
+      clearWaiting();
+    }
+
+    function onStateSuccess() {
+      clearWaiting();
+    }
+
+    function onClickHandler(event) {
+      if (event) { event.preventDefault(); }
+
+      $scope.ctrl$.startAction();
+    }
+
+    function determineWaitingClass() {
+      let styleClass = WaitingButtonController.WAITING_CLASS;
 
       if (typeof $scope.waitingClass === 'string') {
         // Override the default if a custom waiting class has been provided.
-        waitingClass = $scope.waitingClass;
+        styleClass = $scope.waitingClass;
       }
 
-      if (typeof $scope.isExternalEnabled === 'undefined') {
-        // No value provided for external button enabled attribute; assume
-        // button is always considered externally enabled.
-        $scope.isExternalEnabled = true;
+      return styleClass;
+    }
+
+    function clearWaiting() {
+      // Clear the waiting style and flag.
+      isWaiting = false;
+      element.removeClass(waitingClass);
+    }
+  }
+}
+
+export class WaitingButtonController {
+  constructor($scope) {
+    var vm = this,
+        stateChangeListeners = [],
+        currentState = 'init';
+
+    vm.addStateChangeListener = function addStateChangeListener(newListener) {
+       stateChangeListeners.push(newListener);
+    };
+
+    vm.getState = function getState() {
+      return currentState;
+    };
+
+    vm.startAction = function startAction() {
+      if (vm.getState() === 'wait') {
+        // Action already in progress, ignore action request.
+        return;
       }
 
-      $scope.isEnabled = function isEnabled() {
-        return $scope.isExternalEnabled && !isWaiting;
-      }
+      // Execute the action, and capture the (expected) returned promise.
+      var actionQ = $scope.actionReceiver();
 
-      $scope.$watch('isEnabled()', function(value) {
-        element.toggleClass('disabled', !value);
-      });
+      updateState('wait');
 
-      element.on('click touchstart', function(event) {
-        if (event) { event.preventDefault(); }
+      actionQ
+        .then(function() {
+          updateState('success');
+        })
+        .catch(function() {
+          updateState('error');
+        });
+    };
 
-        // Do nothing if the button isn't enabled.
-        if (!$scope.isEnabled()) { return; }
+    updateState(currentState);
 
-        // Execute the action, and capture the (expected) returned promise.
-        var actionQ = $scope.actionReceiver();
+    function updateState(newState) {
+      currentState = newState;
 
-        // Add waiting style.
-        element.addClass(waitingClass);
+      notifyStateChange(currentState);
+    }
 
-        // Set waiting flag, and apply scope to update isEnabled watch.
-        isWaiting = true;
-        $scope.$apply();
-
-        waitingButtonCtrl.updateState('wait');
-
-        actionQ
-          .then(function() {
-            waitingButtonCtrl.updateState('success');
-          })
-          .catch(function() {
-            waitingButtonCtrl.updateState('error');
-          })
-          .finally(function() {
-            // Clear the waiting style and flag.
-            isWaiting = false;
-            element.removeClass(waitingClass);
-          });
+    function notifyStateChange(newState) {
+      stateChangeListeners.forEach(waitingButtonTextListener => {
+        waitingButtonTextListener(newState);
       });
     }
   }
 }
+WaitingButtonController.WAITING_CLASS = 'mbm-waiting-button--waiting';
