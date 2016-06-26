@@ -95,4 +95,41 @@ describe('mbmWaitingButton', () => {
       expect(element.hasClass(waitingClass)).toEqual(false);
     });
   });
+
+  it('should support prevent additional action triggers while in wait state', () => {
+    angular.mock.inject(($rootScope, $compile, $timeout, $q) => {
+      // Build a Promise to represent an async operation
+      const operationDeferred = $q.defer();
+
+      // Fake receiver for the click action
+      let receiverInvocationCounter = 0;
+      $rootScope.onClickReceiver = function() {
+        // TODO: This should updated to use a spy at some point.
+        receiverInvocationCounter++;
+
+        return operationDeferred.promise;
+      }
+
+      // Define simple template for the directive, and then compile it
+      const template = `
+        <button mbm-waiting-button="onClickReceiver()">Waiting Button</button>
+      `;
+      const element = $compile(template)($rootScope);
+
+      // Simulate click to enter "waiting" state
+      element[0].click();
+
+      // Run the Angular digest loop once to pick up the changes.
+      $rootScope.$digest();
+
+      // Simulate another click
+      element[0].click();
+
+      // Run the Angular digest loop once to pick up the changes.
+      $rootScope.$digest();
+
+      // Verify that the operation receiver has only been invoked once.
+      expect(receiverInvocationCounter).toEqual(1);
+    });
+  });
 });
