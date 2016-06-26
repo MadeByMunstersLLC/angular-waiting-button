@@ -9,6 +9,7 @@ export class WaitingButtonDirective {
       waitingClass: '@?waitingButtonWaitingClass',
     };
     this.controller = ['$scope', WaitingButtonController];
+    this.controllerAs = 'ctrl$';
     this.link = WaitingButtonDirective.link;
   }
 
@@ -16,12 +17,7 @@ export class WaitingButtonDirective {
     var isWaiting = false;
 
     // Start with the default waiting class
-    var waitingClass = WaitingButtonController.WAITING_CLASS;
-
-    if (typeof $scope.waitingClass === 'string') {
-      // Override the default if a custom waiting class has been provided.
-      waitingClass = $scope.waitingClass;
-    }
+    var waitingClass = determineWaitingClass();
 
     if (typeof $scope.isExternalEnabled === 'undefined') {
       // No value provided for external button enabled attribute; assume
@@ -33,40 +29,72 @@ export class WaitingButtonDirective {
       return $scope.isExternalEnabled && !isWaiting;
     }
 
+    $scope.$watch('ctrl$.getState()', function(newState) {
+      updateElementState(newState);
+    });
+
+    // Pick up initial state
+    updateElementState($scope.ctrl$.getState());
+
     $scope.$watch('isEnabled()', function(value) {
       element.toggleClass('disabled', !value);
     });
 
-    element.on('click touchstart', function(event) {
-      if (event) { event.preventDefault(); }
+    element.on('click touchstart', onClickHandler);
 
-      // Do nothing if the button isn't enabled.
-      if (!$scope.isEnabled()) { return; }
+    function updateElementState(newState) {
+      switch (newState) {
+        case 'init':
+          onStateInit();
+          break;
+        case 'wait':
+          onStateWait();
+          break;
+        case 'error':
+          onStateError();
+          break;
+        case 'success':
+          onStateSuccess();
+          break;
+        default:
+          // Should never get here; blow up if the state can't be parsed.
+          throw new Error('Unrecognized state');
+      }
+    }
 
-      // Execute the action, and capture the (expected) returned promise.
-      var actionQ = $scope.actionReceiver();
+    function onStateInit() {
+      clearWaiting();
+    }
 
+    function onStateWait() {
       // Add waiting style.
       element.addClass(waitingClass);
+    }
 
-      // Set waiting flag, and apply scope to update isEnabled watch.
-      isWaiting = true;
-      $scope.$apply();
+    function onStateError() {
+      clearWaiting();
+    }
 
-      waitingButtonCtrl.updateState('wait');
+    function onStateSuccess() {
+      clearWaiting();
+    }
 
-      actionQ
-        .then(function() {
-          waitingButtonCtrl.updateState('success');
+    function onClickHandler(event) {
+      if (event) { event.preventDefault(); }
 
-          clearWaiting();
-        })
-        .catch(function() {
-          waitingButtonCtrl.updateState('error');
+      $scope.ctrl$.startAction();
+    }
 
-          clearWaiting();
-        });
-    });
+    function determineWaitingClass() {
+      let styleClass = WaitingButtonController.WAITING_CLASS;
+
+      if (typeof $scope.waitingClass === 'string') {
+        // Override the default if a custom waiting class has been provided.
+        styleClass = $scope.waitingClass;
+      }
+
+      return styleClass;
+    }
 
     function clearWaiting() {
       // Clear the waiting style and flag.
@@ -95,6 +123,28 @@ export class WaitingButtonController {
     vm.getState = function getState() {
       return currentState;
     };
+
+    vm.startAction = function startAction() {
+      if (vm.getState() === 'wait') {
+        // Action already in progress, ignore action request.
+        return;
+      }
+
+      // Execute the action, and capture the (expected) returned promise.
+      var actionQ = $scope.actionReceiver();
+
+      vm.updateState('wait');
+
+      actionQ
+      .then(function() {
+        vm.updateState('success');
+      })
+      .catch(function() {
+        vm.updateState('error');
+      });
+    }
+
+    vm.updateState('init');
 
     function notifyStateChange(newState) {
       registeredTexts.forEach(function(waitingButtonTextListener) {

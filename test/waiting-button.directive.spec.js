@@ -34,6 +34,9 @@ describe('mbmWaitingButton', () => {
       // Simulate click to enter "waiting" state
       element[0].click();
 
+      // Run the Angular digest loop once to pick up the changes.
+      $rootScope.$digest();
+
       // Verify that the element now has the waiting-button loading class.
       expect(element.hasClass(WaitingButtonController.WAITING_CLASS)).toEqual(true);
 
