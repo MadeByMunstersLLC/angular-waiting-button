@@ -1,11 +1,9 @@
 import {WaitingButtonController} from '../src/js/waiting-button.directive';
-const angular = require('angular'),
-      angularMock = require('angular-mocks');
-
+import mbmWaitingButton from '../src/js/waiting-button.module';
 
 describe('mbmWaitingButton', () => {
   beforeEach(() => {
-    angular.mock.module('mbm.waitingButton');
+    angular.mock.module('mbmWaitingButton');
   });
 
   it('should toggle waiting class based on operation promise', () => {

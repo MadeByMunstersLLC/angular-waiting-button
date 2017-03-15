@@ -1,5 +1,78 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -7,15 +80,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.mbmWaitingButtonText = mbmWaitingButtonText;
 function mbmWaitingButtonText() {
   return {
-    restrict: 'EA',
-    require: '^mbmWaitingButton',
+    restrict: "EA",
+    require: "^mbmWaitingButton",
     scope: {
-      statusCategory: '@waitingButtonText'
+      statusCategory: "@waitingButtonText"
     },
     link: function link($scope, element, attr, waitingButtonCtrl) {
       waitingButtonCtrl.registerText(onChangeStatus);
 
-      var states = $scope.statusCategory.split(',').map(function (state) {
+      var states = $scope.statusCategory.split(",").map(function (state) {
         return state.trim();
       });
 
@@ -32,59 +105,46 @@ function mbmWaitingButtonText() {
   };
 }
 
-},{}],2:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mbmWaitingButton = mbmWaitingButton;
-function mbmWaitingButton() {
-  return {
-    restrict: 'A',
-    require: 'mbmWaitingButton',
-    scope: {
-      actionReceiver: '&mbmWaitingButton',
-      isExternalEnabled: '=?waitingButtonEnabled',
-      waitingClass: '@?waitingButtonWaitingClass'
-    },
-    controller: ['$scope', function ($scope) {
-      var vm = this,
-          registeredTexts = [],
-          currentState = 'init';
 
-      vm.registerText = function registerText(waitingButtonTextListener) {
-        registeredTexts.push(waitingButtonTextListener);
-      };
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-      vm.updateState = function updateState(newState) {
-        currentState = newState;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-        notifyStateChange(currentState);
-      };
+var WaitingButtonDirective = exports.WaitingButtonDirective = function () {
+  function WaitingButtonDirective() {
+    _classCallCheck(this, WaitingButtonDirective);
 
-      vm.getState = function getState() {
-        return currentState;
-      };
+    this.restrict = "A";
+    this.require = "mbmWaitingButton";
+    this.scope = {
+      actionReceiver: "&mbmWaitingButton",
+      isExternalEnabled: "=?waitingButtonEnabled",
+      waitingClass: "@?waitingButtonWaitingClass"
+    };
+    this.controller = ["$scope", WaitingButtonController];
+    this.controllerAs = "$ctrl";
+    this.link = WaitingButtonDirective.link;
+  }
 
-      function notifyStateChange(newState) {
-        registeredTexts.forEach(function (waitingButtonTextListener) {
-          waitingButtonTextListener(newState);
-        });
-      }
-    }],
-    link: function link($scope, element, attr, waitingButtonCtrl) {
+  _createClass(WaitingButtonDirective, null, [{
+    key: "link",
+    value: function link($scope, element, attr, waitingButtonCtrl) {
       var isWaiting = false;
 
       // Start with the default waiting class
-      var waitingClass = 'mbm-waiting-button--waiting';
+      var waitingClass = determineWaitingClass();
 
-      if (typeof $scope.waitingClass === 'string') {
-        // Override the default if a custom waiting class has been provided.
-        waitingClass = $scope.waitingClass;
-      }
-
-      if (typeof $scope.isExternalEnabled === 'undefined') {
+      if (typeof $scope.isExternalEnabled === "undefined") {
         // No value provided for external button enabled attribute; assume
         // button is always considered externally enabled.
         $scope.isExternalEnabled = true;
@@ -94,56 +154,503 @@ function mbmWaitingButton() {
         return $scope.isExternalEnabled && !isWaiting;
       };
 
-      $scope.$watch('isEnabled()', function (value) {
-        element.toggleClass('disabled', !value);
+      $scope.$ctrl.addStateChangeListener(updateElementState);
+
+      // Pick up initial state
+      updateElementState($scope.$ctrl.getState());
+
+      $scope.$watch("isEnabled()", function (value) {
+        element.toggleClass("disabled", !value);
       });
 
-      element.on('click touchstart', function (event) {
+      element.on("click touchstart", onClickHandler);
+
+      function updateElementState(newState) {
+        switch (newState) {
+          case "init":
+            onStateInit();
+            break;
+          case "wait":
+            onStateWait();
+            break;
+          case "error":
+            onStateError();
+            break;
+          case "success":
+            onStateSuccess();
+            break;
+          default:
+            // Should never get here; blow up if the state can't be parsed.
+            throw new Error("Unrecognized state");
+        }
+      }
+
+      function onStateInit() {
+        clearWaiting();
+      }
+
+      function onStateWait() {
+        // Add waiting style.
+        element.addClass(waitingClass);
+      }
+
+      function onStateError() {
+        clearWaiting();
+      }
+
+      function onStateSuccess() {
+        clearWaiting();
+      }
+
+      function onClickHandler(event) {
         if (event) {
           event.preventDefault();
         }
 
-        // Do nothing if the button isn't enabled.
-        if (!$scope.isEnabled()) {
-          return;
+        $scope.$ctrl.startAction();
+      }
+
+      function determineWaitingClass() {
+        var styleClass = WaitingButtonController.WAITING_CLASS;
+
+        if (typeof $scope.waitingClass === "string") {
+          // Override the default if a custom waiting class has been provided.
+          styleClass = $scope.waitingClass;
         }
 
-        // Execute the action, and capture the (expected) returned promise.
-        var actionQ = $scope.actionReceiver();
+        return styleClass;
+      }
 
-        // Add waiting style.
-        element.addClass(waitingClass);
-
-        // Set waiting flag, and apply scope to update isEnabled watch.
-        isWaiting = true;
-        $scope.$apply();
-
-        waitingButtonCtrl.updateState('wait');
-
-        actionQ.then(function () {
-          waitingButtonCtrl.updateState('success');
-        }).catch(function () {
-          waitingButtonCtrl.updateState('error');
-        }).finally(function () {
-          // Clear the waiting style and flag.
-          isWaiting = false;
-          element.removeClass(waitingClass);
-        });
-      });
+      function clearWaiting() {
+        // Clear the waiting style and flag.
+        isWaiting = false;
+        element.removeClass(waitingClass);
+      }
     }
+  }]);
+
+  return WaitingButtonDirective;
+}();
+
+var WaitingButtonController = exports.WaitingButtonController = function WaitingButtonController($scope) {
+  _classCallCheck(this, WaitingButtonController);
+
+  var vm = this,
+      stateChangeListeners = [],
+      currentState = "init";
+
+  vm.addStateChangeListener = function addStateChangeListener(newListener) {
+    stateChangeListeners.push(newListener);
   };
+
+  vm.getState = function getState() {
+    return currentState;
+  };
+
+  vm.startAction = function startAction() {
+    if (vm.getState() === "wait") {
+      // Action already in progress, ignore action request.
+      return;
+    }
+
+    // Execute the action, and capture the (expected) returned promise.
+    var actionQ = $scope.actionReceiver();
+
+    updateState("wait");
+
+    actionQ.then(function () {
+      updateState("success");
+    }).catch(function () {
+      updateState("error");
+    });
+  };
+
+  updateState(currentState);
+
+  function updateState(newState) {
+    currentState = newState;
+
+    notifyStateChange(currentState);
+  }
+
+  function notifyStateChange(newState) {
+    stateChangeListeners.forEach(function (waitingButtonTextListener) {
+      waitingButtonTextListener(newState);
+    });
+  }
+};
+
+WaitingButtonController.WAITING_CLASS = "mbm-waiting-button--waiting";
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(3);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(5)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/index.js?includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon/app/assets/stylesheets&includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon-neat/app/assets/stylesheets!./angular-waiting-button.scss", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/index.js?includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon/app/assets/stylesheets&includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon-neat/app/assets/stylesheets!./angular-waiting-button.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
 }
 
-},{}],3:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var _waitingButton = require('./waiting-button.directive');
+exports = module.exports = __webpack_require__(4)();
+// imports
 
-var _waitingButtonText = require('./waiting-button-text.directive');
 
-(function () {
-  angular.module('mbm.waitingButton', []).directive('mbmWaitingButton', _waitingButton.mbmWaitingButton).directive('mbmWaitingButtonText', _waitingButtonText.mbmWaitingButtonText);
+// module
+exports.push([module.i, "@-webkit-keyframes opacityPulse {\n  0% {\n    opacity: 0.87; }\n  50% {\n    opacity: 0.70; }\n  100% {\n    opacity: 0.87; } }\n\n@-moz-keyframes opacityPulse {\n  0% {\n    opacity: 0.87; }\n  50% {\n    opacity: 0.70; }\n  100% {\n    opacity: 0.87; } }\n\n@keyframes opacityPulse {\n  0% {\n    opacity: 0.87; }\n  50% {\n    opacity: 0.70; }\n  100% {\n    opacity: 0.87; } }\n\n.mbm-waiting-button--waiting {\n  -webkit-animation: opacityPulse 1.5s ease infinite;\n  -moz-animation: opacityPulse 1.5s ease infinite;\n  animation: opacityPulse 1.5s ease infinite; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function() {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for(var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if(item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+var stylesInDom = {},
+	memoize = function(fn) {
+		var memo;
+		return function () {
+			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+			return memo;
+		};
+	},
+	isOldIE = memoize(function() {
+		return /msie [6-9]\b/.test(self.navigator.userAgent.toLowerCase());
+	}),
+	getHeadElement = memoize(function () {
+		return document.head || document.getElementsByTagName("head")[0];
+	}),
+	singletonElement = null,
+	singletonCounter = 0,
+	styleElementsInsertedAtTop = [];
+
+module.exports = function(list, options) {
+	if(typeof DEBUG !== "undefined" && DEBUG) {
+		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the bottom of <head>.
+	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+	var styles = listToStyles(list);
+	addStylesToDom(styles, options);
+
+	return function update(newList) {
+		var mayRemove = [];
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+		if(newList) {
+			var newStyles = listToStyles(newList);
+			addStylesToDom(newStyles, options);
+		}
+		for(var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+			if(domStyle.refs === 0) {
+				for(var j = 0; j < domStyle.parts.length; j++)
+					domStyle.parts[j]();
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+}
+
+function addStylesToDom(styles, options) {
+	for(var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+		if(domStyle) {
+			domStyle.refs++;
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles(list) {
+	var styles = [];
+	var newStyles = {};
+	for(var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+		if(!newStyles[id])
+			styles.push(newStyles[id] = {id: id, parts: [part]});
+		else
+			newStyles[id].parts.push(part);
+	}
+	return styles;
+}
+
+function insertStyleElement(options, styleElement) {
+	var head = getHeadElement();
+	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+	if (options.insertAt === "top") {
+		if(!lastStyleElementInsertedAtTop) {
+			head.insertBefore(styleElement, head.firstChild);
+		} else if(lastStyleElementInsertedAtTop.nextSibling) {
+			head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			head.appendChild(styleElement);
+		}
+		styleElementsInsertedAtTop.push(styleElement);
+	} else if (options.insertAt === "bottom") {
+		head.appendChild(styleElement);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement(styleElement) {
+	styleElement.parentNode.removeChild(styleElement);
+	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+	if(idx >= 0) {
+		styleElementsInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement(options) {
+	var styleElement = document.createElement("style");
+	styleElement.type = "text/css";
+	insertStyleElement(options, styleElement);
+	return styleElement;
+}
+
+function createLinkElement(options) {
+	var linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	insertStyleElement(options, linkElement);
+	return linkElement;
+}
+
+function addStyle(obj, options) {
+	var styleElement, update, remove;
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+		styleElement = singletonElement || (singletonElement = createStyleElement(options));
+		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+	} else if(obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function") {
+		styleElement = createLinkElement(options);
+		update = updateLink.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+			if(styleElement.href)
+				URL.revokeObjectURL(styleElement.href);
+		};
+	} else {
+		styleElement = createStyleElement(options);
+		update = applyToTag.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle(newObj) {
+		if(newObj) {
+			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+				return;
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+		return textStore.filter(Boolean).join('\n');
+	};
 })();
 
-},{"./waiting-button-text.directive":1,"./waiting-button.directive":2}]},{},[3])
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9icm93c2VyLXBhY2svX3ByZWx1ZGUuanMiLCJzcmMvanMvd2FpdGluZy1idXR0b24tdGV4dC5kaXJlY3RpdmUuanMiLCJzcmMvanMvd2FpdGluZy1idXR0b24uZGlyZWN0aXZlLmpzIiwic3JjL2pzL3dhaXRpbmctYnV0dG9uLm1vZHVsZS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O1FDQ2dCLG9CLEdBQUEsb0I7QUFBVCxTQUFTLG9CQUFULEdBQWdDO0FBQ3JDLFNBQU87QUFDTCxjQUFVLElBREw7QUFFTCxhQUFTLG1CQUZKO0FBR0wsV0FBTztBQUNMLHNCQUFnQjtBQURYLEtBSEY7QUFNTCxVQUFNLGNBQVUsTUFBVixFQUFrQixPQUFsQixFQUEyQixJQUEzQixFQUFpQyxpQkFBakMsRUFBb0Q7QUFDeEQsd0JBQWtCLFlBQWxCLENBQStCLGNBQS9COztBQUVBLFVBQUksU0FBUyxPQUFPLGNBQVAsQ0FBc0IsS0FBdEIsQ0FBNEIsR0FBNUIsRUFBaUMsR0FBakMsQ0FBcUMsVUFBUyxLQUFULEVBQWdCO0FBQUUsZUFBTyxNQUFNLElBQU4sRUFBUDtBQUFzQixPQUE3RSxDQUFiOztBQUVBLGVBQVMsY0FBVCxDQUF3QixTQUF4QixFQUFtQztBQUNqQyxZQUFJLE9BQU8sT0FBUCxDQUFlLFNBQWYsS0FBNkIsQ0FBakMsRUFBb0M7QUFDbEMsa0JBQVEsSUFBUjtBQUNELFNBRkQsTUFFTztBQUNMLGtCQUFRLElBQVI7QUFDRDtBQUNGOztBQUVELHFCQUFlLGtCQUFrQixRQUFsQixFQUFmO0FBQ0Q7QUFwQkksR0FBUDtBQXNCRDs7Ozs7Ozs7UUN2QmUsZ0IsR0FBQSxnQjtBQUFULFNBQVMsZ0JBQVQsR0FBNEI7QUFDakMsU0FBTztBQUNMLGNBQVUsR0FETDtBQUVMLGFBQVMsa0JBRko7QUFHTCxXQUFPO0FBQ0wsc0JBQWdCLG1CQURYO0FBRUwseUJBQW1CLHdCQUZkO0FBR0wsb0JBQWM7QUFIVCxLQUhGO0FBUUwsZ0JBQVksQ0FBQyxRQUFELEVBQVcsVUFBUyxNQUFULEVBQWlCO0FBQ3RDLFVBQUksS0FBSyxJQUFUO1VBQ0ksa0JBQWtCLEVBRHRCO1VBRUksZUFBZSxNQUZuQjs7QUFJQSxTQUFHLFlBQUgsR0FBa0IsU0FBUyxZQUFULENBQXNCLHlCQUF0QixFQUFpRDtBQUNqRSx3QkFBZ0IsSUFBaEIsQ0FBcUIseUJBQXJCO0FBQ0QsT0FGRDs7QUFJQSxTQUFHLFdBQUgsR0FBaUIsU0FBUyxXQUFULENBQXFCLFFBQXJCLEVBQStCO0FBQzlDLHVCQUFlLFFBQWY7O0FBRUEsMEJBQWtCLFlBQWxCO0FBQ0QsT0FKRDs7QUFNQSxTQUFHLFFBQUgsR0FBYyxTQUFTLFFBQVQsR0FBb0I7QUFDaEMsZUFBTyxZQUFQO0FBQ0QsT0FGRDs7QUFJQSxlQUFTLGlCQUFULENBQTJCLFFBQTNCLEVBQXFDO0FBQ25DLHdCQUFnQixPQUFoQixDQUF3QixVQUFTLHlCQUFULEVBQW9DO0FBQzFELG9DQUEwQixRQUExQjtBQUNELFNBRkQ7QUFHRDtBQUNGLEtBeEJXLENBUlA7QUFpQ0wsVUFBTSxjQUFVLE1BQVYsRUFBa0IsT0FBbEIsRUFBMkIsSUFBM0IsRUFBaUMsaUJBQWpDLEVBQW9EO0FBQ3hELFVBQUksWUFBWSxLQUFoQjs7O0FBR0EsVUFBSSxlQUFlLDZCQUFuQjs7QUFFQSxVQUFJLE9BQU8sT0FBTyxZQUFkLEtBQStCLFFBQW5DLEVBQTZDOztBQUUzQyx1QkFBZSxPQUFPLFlBQXRCO0FBQ0Q7O0FBRUQsVUFBSSxPQUFPLE9BQU8saUJBQWQsS0FBb0MsV0FBeEMsRUFBcUQ7OztBQUduRCxlQUFPLGlCQUFQLEdBQTJCLElBQTNCO0FBQ0Q7O0FBRUQsYUFBTyxTQUFQLEdBQW1CLFNBQVMsU0FBVCxHQUFxQjtBQUN0QyxlQUFPLE9BQU8saUJBQVAsSUFBNEIsQ0FBQyxTQUFwQztBQUNELE9BRkQ7O0FBSUEsYUFBTyxNQUFQLENBQWMsYUFBZCxFQUE2QixVQUFTLEtBQVQsRUFBZ0I7QUFDM0MsZ0JBQVEsV0FBUixDQUFvQixVQUFwQixFQUFnQyxDQUFDLEtBQWpDO0FBQ0QsT0FGRDs7QUFJQSxjQUFRLEVBQVIsQ0FBVyxrQkFBWCxFQUErQixVQUFTLEtBQVQsRUFBZ0I7QUFDN0MsWUFBSSxLQUFKLEVBQVc7QUFBRSxnQkFBTSxjQUFOO0FBQXlCOzs7QUFHdEMsWUFBSSxDQUFDLE9BQU8sU0FBUCxFQUFMLEVBQXlCO0FBQUU7QUFBUzs7O0FBR3BDLFlBQUksVUFBVSxPQUFPLGNBQVAsRUFBZDs7O0FBR0EsZ0JBQVEsUUFBUixDQUFpQixZQUFqQjs7O0FBR0Esb0JBQVksSUFBWjtBQUNBLGVBQU8sTUFBUDs7QUFFQSwwQkFBa0IsV0FBbEIsQ0FBOEIsTUFBOUI7O0FBRUEsZ0JBQ0csSUFESCxDQUNRLFlBQVc7QUFDZiw0QkFBa0IsV0FBbEIsQ0FBOEIsU0FBOUI7QUFDRCxTQUhILEVBSUcsS0FKSCxDQUlTLFlBQVc7QUFDaEIsNEJBQWtCLFdBQWxCLENBQThCLE9BQTlCO0FBQ0QsU0FOSCxFQU9HLE9BUEgsQ0FPVyxZQUFXOztBQUVsQixzQkFBWSxLQUFaO0FBQ0Esa0JBQVEsV0FBUixDQUFvQixZQUFwQjtBQUNELFNBWEg7QUFZRCxPQTlCRDtBQStCRDtBQXpGSSxHQUFQO0FBMkZEOzs7OztBQzdGRDs7QUFDQTs7QUFHQSxDQUFDLFlBQVk7QUFDWCxVQUFRLE1BQVIsQ0FBZSxtQkFBZixFQUFvQyxFQUFwQyxFQUNHLFNBREgsQ0FDYSxrQkFEYixtQ0FFRyxTQUZILENBRWEsc0JBRmI7QUFHRCxDQUpEIiwiZmlsZSI6ImdlbmVyYXRlZC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyIoZnVuY3Rpb24gZSh0LG4scil7ZnVuY3Rpb24gcyhvLHUpe2lmKCFuW29dKXtpZighdFtvXSl7dmFyIGE9dHlwZW9mIHJlcXVpcmU9PVwiZnVuY3Rpb25cIiYmcmVxdWlyZTtpZighdSYmYSlyZXR1cm4gYShvLCEwKTtpZihpKXJldHVybiBpKG8sITApO3ZhciBmPW5ldyBFcnJvcihcIkNhbm5vdCBmaW5kIG1vZHVsZSAnXCIrbytcIidcIik7dGhyb3cgZi5jb2RlPVwiTU9EVUxFX05PVF9GT1VORFwiLGZ9dmFyIGw9bltvXT17ZXhwb3J0czp7fX07dFtvXVswXS5jYWxsKGwuZXhwb3J0cyxmdW5jdGlvbihlKXt2YXIgbj10W29dWzFdW2VdO3JldHVybiBzKG4/bjplKX0sbCxsLmV4cG9ydHMsZSx0LG4scil9cmV0dXJuIG5bb10uZXhwb3J0c312YXIgaT10eXBlb2YgcmVxdWlyZT09XCJmdW5jdGlvblwiJiZyZXF1aXJlO2Zvcih2YXIgbz0wO288ci5sZW5ndGg7bysrKXMocltvXSk7cmV0dXJuIHN9KSIsIlxuZXhwb3J0IGZ1bmN0aW9uIG1ibVdhaXRpbmdCdXR0b25UZXh0KCkge1xuICByZXR1cm4ge1xuICAgIHJlc3RyaWN0OiAnRUEnLFxuICAgIHJlcXVpcmU6ICdebWJtV2FpdGluZ0J1dHRvbicsXG4gICAgc2NvcGU6IHtcbiAgICAgIHN0YXR1c0NhdGVnb3J5OiAnQHdhaXRpbmdCdXR0b25UZXh0J1xuICAgIH0sXG4gICAgbGluazogZnVuY3Rpb24gKCRzY29wZSwgZWxlbWVudCwgYXR0ciwgd2FpdGluZ0J1dHRvbkN0cmwpIHtcbiAgICAgIHdhaXRpbmdCdXR0b25DdHJsLnJlZ2lzdGVyVGV4dChvbkNoYW5nZVN0YXR1cyk7XG5cbiAgICAgIHZhciBzdGF0ZXMgPSAkc2NvcGUuc3RhdHVzQ2F0ZWdvcnkuc3BsaXQoJywnKS5tYXAoZnVuY3Rpb24oc3RhdGUpIHsgcmV0dXJuIHN0YXRlLnRyaW0oKTsgfSk7XG5cbiAgICAgIGZ1bmN0aW9uIG9uQ2hhbmdlU3RhdHVzKG5ld1N0YXR1cykge1xuICAgICAgICBpZiAoc3RhdGVzLmluZGV4T2YobmV3U3RhdHVzKSA+PSAwKSB7XG4gICAgICAgICAgZWxlbWVudC5zaG93KCk7XG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgZWxlbWVudC5oaWRlKCk7XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgb25DaGFuZ2VTdGF0dXMod2FpdGluZ0J1dHRvbkN0cmwuZ2V0U3RhdGUoKSk7XG4gICAgfVxuICB9O1xufVxuIiwiXG5leHBvcnQgZnVuY3Rpb24gbWJtV2FpdGluZ0J1dHRvbigpIHtcbiAgcmV0dXJuIHtcbiAgICByZXN0cmljdDogJ0EnLFxuICAgIHJlcXVpcmU6ICdtYm1XYWl0aW5nQnV0dG9uJyxcbiAgICBzY29wZToge1xuICAgICAgYWN0aW9uUmVjZWl2ZXI6ICcmbWJtV2FpdGluZ0J1dHRvbicsXG4gICAgICBpc0V4dGVybmFsRW5hYmxlZDogJz0/d2FpdGluZ0J1dHRvbkVuYWJsZWQnLFxuICAgICAgd2FpdGluZ0NsYXNzOiAnQD93YWl0aW5nQnV0dG9uV2FpdGluZ0NsYXNzJyxcbiAgICB9LFxuICAgIGNvbnRyb2xsZXI6IFsnJHNjb3BlJywgZnVuY3Rpb24oJHNjb3BlKSB7XG4gICAgICB2YXIgdm0gPSB0aGlzLFxuICAgICAgICAgIHJlZ2lzdGVyZWRUZXh0cyA9IFtdLFxuICAgICAgICAgIGN1cnJlbnRTdGF0ZSA9ICdpbml0JztcblxuICAgICAgdm0ucmVnaXN0ZXJUZXh0ID0gZnVuY3Rpb24gcmVnaXN0ZXJUZXh0KHdhaXRpbmdCdXR0b25UZXh0TGlzdGVuZXIpIHtcbiAgICAgICAgcmVnaXN0ZXJlZFRleHRzLnB1c2god2FpdGluZ0J1dHRvblRleHRMaXN0ZW5lcik7XG4gICAgICB9O1xuXG4gICAgICB2bS51cGRhdGVTdGF0ZSA9IGZ1bmN0aW9uIHVwZGF0ZVN0YXRlKG5ld1N0YXRlKSB7XG4gICAgICAgIGN1cnJlbnRTdGF0ZSA9IG5ld1N0YXRlO1xuXG4gICAgICAgIG5vdGlmeVN0YXRlQ2hhbmdlKGN1cnJlbnRTdGF0ZSk7XG4gICAgICB9O1xuXG4gICAgICB2bS5nZXRTdGF0ZSA9IGZ1bmN0aW9uIGdldFN0YXRlKCkge1xuICAgICAgICByZXR1cm4gY3VycmVudFN0YXRlO1xuICAgICAgfTtcblxuICAgICAgZnVuY3Rpb24gbm90aWZ5U3RhdGVDaGFuZ2UobmV3U3RhdGUpIHtcbiAgICAgICAgcmVnaXN0ZXJlZFRleHRzLmZvckVhY2goZnVuY3Rpb24od2FpdGluZ0J1dHRvblRleHRMaXN0ZW5lcikge1xuICAgICAgICAgIHdhaXRpbmdCdXR0b25UZXh0TGlzdGVuZXIobmV3U3RhdGUpO1xuICAgICAgICB9KTtcbiAgICAgIH1cbiAgICB9XSxcbiAgICBsaW5rOiBmdW5jdGlvbiAoJHNjb3BlLCBlbGVtZW50LCBhdHRyLCB3YWl0aW5nQnV0dG9uQ3RybCkge1xuICAgICAgdmFyIGlzV2FpdGluZyA9IGZhbHNlO1xuXG4gICAgICAvLyBTdGFydCB3aXRoIHRoZSBkZWZhdWx0IHdhaXRpbmcgY2xhc3NcbiAgICAgIHZhciB3YWl0aW5nQ2xhc3MgPSAnbWJtLXdhaXRpbmctYnV0dG9uLS13YWl0aW5nJztcblxuICAgICAgaWYgKHR5cGVvZiAkc2NvcGUud2FpdGluZ0NsYXNzID09PSAnc3RyaW5nJykge1xuICAgICAgICAvLyBPdmVycmlkZSB0aGUgZGVmYXVsdCBpZiBhIGN1c3RvbSB3YWl0aW5nIGNsYXNzIGhhcyBiZWVuIHByb3ZpZGVkLlxuICAgICAgICB3YWl0aW5nQ2xhc3MgPSAkc2NvcGUud2FpdGluZ0NsYXNzO1xuICAgICAgfVxuXG4gICAgICBpZiAodHlwZW9mICRzY29wZS5pc0V4dGVybmFsRW5hYmxlZCA9PT0gJ3VuZGVmaW5lZCcpIHtcbiAgICAgICAgLy8gTm8gdmFsdWUgcHJvdmlkZWQgZm9yIGV4dGVybmFsIGJ1dHRvbiBlbmFibGVkIGF0dHJpYnV0ZTsgYXNzdW1lXG4gICAgICAgIC8vIGJ1dHRvbiBpcyBhbHdheXMgY29uc2lkZXJlZCBleHRlcm5hbGx5IGVuYWJsZWQuXG4gICAgICAgICRzY29wZS5pc0V4dGVybmFsRW5hYmxlZCA9IHRydWU7XG4gICAgICB9XG5cbiAgICAgICRzY29wZS5pc0VuYWJsZWQgPSBmdW5jdGlvbiBpc0VuYWJsZWQoKSB7XG4gICAgICAgIHJldHVybiAkc2NvcGUuaXNFeHRlcm5hbEVuYWJsZWQgJiYgIWlzV2FpdGluZztcbiAgICAgIH1cblxuICAgICAgJHNjb3BlLiR3YXRjaCgnaXNFbmFibGVkKCknLCBmdW5jdGlvbih2YWx1ZSkge1xuICAgICAgICBlbGVtZW50LnRvZ2dsZUNsYXNzKCdkaXNhYmxlZCcsICF2YWx1ZSk7XG4gICAgICB9KTtcblxuICAgICAgZWxlbWVudC5vbignY2xpY2sgdG91Y2hzdGFydCcsIGZ1bmN0aW9uKGV2ZW50KSB7XG4gICAgICAgIGlmIChldmVudCkgeyBldmVudC5wcmV2ZW50RGVmYXVsdCgpOyB9XG5cbiAgICAgICAgLy8gRG8gbm90aGluZyBpZiB0aGUgYnV0dG9uIGlzbid0IGVuYWJsZWQuXG4gICAgICAgIGlmICghJHNjb3BlLmlzRW5hYmxlZCgpKSB7IHJldHVybjsgfVxuXG4gICAgICAgIC8vIEV4ZWN1dGUgdGhlIGFjdGlvbiwgYW5kIGNhcHR1cmUgdGhlIChleHBlY3RlZCkgcmV0dXJuZWQgcHJvbWlzZS5cbiAgICAgICAgdmFyIGFjdGlvblEgPSAkc2NvcGUuYWN0aW9uUmVjZWl2ZXIoKTtcblxuICAgICAgICAvLyBBZGQgd2FpdGluZyBzdHlsZS5cbiAgICAgICAgZWxlbWVudC5hZGRDbGFzcyh3YWl0aW5nQ2xhc3MpO1xuXG4gICAgICAgIC8vIFNldCB3YWl0aW5nIGZsYWcsIGFuZCBhcHBseSBzY29wZSB0byB1cGRhdGUgaXNFbmFibGVkIHdhdGNoLlxuICAgICAgICBpc1dhaXRpbmcgPSB0cnVlO1xuICAgICAgICAkc2NvcGUuJGFwcGx5KCk7XG5cbiAgICAgICAgd2FpdGluZ0J1dHRvbkN0cmwudXBkYXRlU3RhdGUoJ3dhaXQnKTtcblxuICAgICAgICBhY3Rpb25RXG4gICAgICAgICAgLnRoZW4oZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICB3YWl0aW5nQnV0dG9uQ3RybC51cGRhdGVTdGF0ZSgnc3VjY2VzcycpO1xuICAgICAgICAgIH0pXG4gICAgICAgICAgLmNhdGNoKGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgd2FpdGluZ0J1dHRvbkN0cmwudXBkYXRlU3RhdGUoJ2Vycm9yJyk7XG4gICAgICAgICAgfSlcbiAgICAgICAgICAuZmluYWxseShmdW5jdGlvbigpIHtcbiAgICAgICAgICAgIC8vIENsZWFyIHRoZSB3YWl0aW5nIHN0eWxlIGFuZCBmbGFnLlxuICAgICAgICAgICAgaXNXYWl0aW5nID0gZmFsc2U7XG4gICAgICAgICAgICBlbGVtZW50LnJlbW92ZUNsYXNzKHdhaXRpbmdDbGFzcyk7XG4gICAgICAgICAgfSk7XG4gICAgICB9KTtcbiAgICB9XG4gIH1cbn1cbiIsImltcG9ydCB7bWJtV2FpdGluZ0J1dHRvbn0gZnJvbSAnLi93YWl0aW5nLWJ1dHRvbi5kaXJlY3RpdmUnO1xuaW1wb3J0IHttYm1XYWl0aW5nQnV0dG9uVGV4dH0gZnJvbSAnLi93YWl0aW5nLWJ1dHRvbi10ZXh0LmRpcmVjdGl2ZSc7XG5cblxuKGZ1bmN0aW9uICgpIHtcbiAgYW5ndWxhci5tb2R1bGUoJ21ibS53YWl0aW5nQnV0dG9uJywgW10pXG4gICAgLmRpcmVjdGl2ZSgnbWJtV2FpdGluZ0J1dHRvbicsIG1ibVdhaXRpbmdCdXR0b24pXG4gICAgLmRpcmVjdGl2ZSgnbWJtV2FpdGluZ0J1dHRvblRleHQnLCBtYm1XYWl0aW5nQnV0dG9uVGV4dCk7XG59KSgpO1xuIl19
+function applyToSingletonTag(styleElement, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = styleElement.childNodes;
+		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+		if (childNodes.length) {
+			styleElement.insertBefore(cssNode, childNodes[index]);
+		} else {
+			styleElement.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag(styleElement, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		styleElement.setAttribute("media", media)
+	}
+
+	if(styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = css;
+	} else {
+		while(styleElement.firstChild) {
+			styleElement.removeChild(styleElement.firstChild);
+		}
+		styleElement.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink(linkElement, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	if(sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = linkElement.href;
+
+	linkElement.href = URL.createObjectURL(blob);
+
+	if(oldSrc)
+		URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _waitingButton = __webpack_require__(1);
+
+var _waitingButtonText = __webpack_require__(0);
+
+__webpack_require__(2);
+
+exports.default = angular.module("mbmWaitingButton", []).directive("mbmWaitingButton", function () {
+  return new _waitingButton.WaitingButtonDirective();
+}).directive("mbmWaitingButtonText", _waitingButtonText.mbmWaitingButtonText).name;
+
+/***/ })
+/******/ ]);
+//# sourceMappingURL=angular-waiting-button.js.map
