@@ -28,7 +28,7 @@ module.exports = function karmaConfig (config) {
 
     autoWatch: true,
 
-    singleRun: false,
+    singleRun: true,
 
     webpack: webpackConfig,
 
