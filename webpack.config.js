@@ -1,11 +1,11 @@
 var webpack = require("webpack");
 var path = require("path");
 
-var BUILD_DIR = path.resolve(__dirname, "dist");
-var APP_DIR = path.resolve(__dirname, "./src/js");
+var BUILD_DIR = path.resolve(path.join(__dirname, "dist"));
+var APP_DIR = path.resolve(path.join(__dirname, "src", "js"));
 var config = {
   devtool: "source-map",
-  entry: APP_DIR + "/waiting-button.module.js",
+  entry: path.join(APP_DIR + "waiting-button.module.js"),
   output: {
     path: BUILD_DIR,
     filename: "angular-waiting-button.js",

@@ -298,8 +298,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/index.js?includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon/app/assets/stylesheets&includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon-neat/app/assets/stylesheets!./angular-waiting-button.scss", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/index.js?includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon/app/assets/stylesheets&includePaths[]=/Users/nearbycoder/Sites/MadeByMunsters/OpenSource/angular-waiting-button/node_modules/bourbon-neat/app/assets/stylesheets!./angular-waiting-button.scss");
+		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/index.js!./angular-waiting-button.scss", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/index.js!./angular-waiting-button.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
