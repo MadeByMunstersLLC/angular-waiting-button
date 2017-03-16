@@ -1,18 +1,29 @@
-
-@import 'bourbon';
-
-@include keyframes(opacityPulse) {
+@-webkit-keyframes opacityPulse {
   0% {
-    opacity: 0.87;
-  }
+    opacity: 0.87; }
   50% {
-    opacity: 0.70;
-  }
+    opacity: 0.70; }
   100% {
-    opacity: 0.87;
-  }
-}
+    opacity: 0.87; } }
+
+@-moz-keyframes opacityPulse {
+  0% {
+    opacity: 0.87; }
+  50% {
+    opacity: 0.70; }
+  100% {
+    opacity: 0.87; } }
+
+@keyframes opacityPulse {
+  0% {
+    opacity: 0.87; }
+  50% {
+    opacity: 0.70; }
+  100% {
+    opacity: 0.87; } }
 
 .mbm-waiting-button--waiting {
-  @include animation(opacityPulse 1.5s ease infinite);
+  -webkit-animation: opacityPulse 1.5s ease infinite;
+  -moz-animation: opacityPulse 1.5s ease infinite;
+  animation: opacityPulse 1.5s ease infinite; 
 }

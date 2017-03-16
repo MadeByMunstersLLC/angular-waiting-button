@@ -1,15 +1,14 @@
-
 export class WaitingButtonDirective {
   constructor() {
-    this.restrict = 'A';
-    this.require = 'mbmWaitingButton';
+    this.restrict = "A";
+    this.require = "mbmWaitingButton";
     this.scope = {
-      actionReceiver: '&mbmWaitingButton',
-      isExternalEnabled: '=?waitingButtonEnabled',
-      waitingClass: '@?waitingButtonWaitingClass',
+      actionReceiver: "&mbmWaitingButton",
+      isExternalEnabled: "=?waitingButtonEnabled",
+      waitingClass: "@?waitingButtonWaitingClass"
     };
-    this.controller = ['$scope', WaitingButtonController];
-    this.controllerAs = 'ctrl$';
+    this.controller = ["$scope", WaitingButtonController];
+    this.controllerAs = "$ctrl";
     this.link = WaitingButtonDirective.link;
   }
 
@@ -19,7 +18,7 @@ export class WaitingButtonDirective {
     // Start with the default waiting class
     var waitingClass = determineWaitingClass();
 
-    if (typeof $scope.isExternalEnabled === 'undefined') {
+    if (typeof $scope.isExternalEnabled === "undefined") {
       // No value provided for external button enabled attribute; assume
       // button is always considered externally enabled.
       $scope.isExternalEnabled = true;
@@ -27,36 +26,36 @@ export class WaitingButtonDirective {
 
     $scope.isEnabled = function isEnabled() {
       return $scope.isExternalEnabled && !isWaiting;
-    }
+    };
 
-    $scope.ctrl$.addStateChangeListener(updateElementState);
+    $scope.$ctrl.addStateChangeListener(updateElementState);
 
     // Pick up initial state
-    updateElementState($scope.ctrl$.getState());
+    updateElementState($scope.$ctrl.getState());
 
-    $scope.$watch('isEnabled()', function(value) {
-      element.toggleClass('disabled', !value);
+    $scope.$watch("isEnabled()", function(value) {
+      element.toggleClass("disabled", !value);
     });
 
-    element.on('click touchstart', onClickHandler);
+    element.on("click touchstart", onClickHandler);
 
     function updateElementState(newState) {
       switch (newState) {
-        case 'init':
+        case "init":
           onStateInit();
           break;
-        case 'wait':
+        case "wait":
           onStateWait();
           break;
-        case 'error':
+        case "error":
           onStateError();
           break;
-        case 'success':
+        case "success":
           onStateSuccess();
           break;
         default:
           // Should never get here; blow up if the state can't be parsed.
-          throw new Error('Unrecognized state');
+          throw new Error("Unrecognized state");
       }
     }
 
@@ -78,15 +77,17 @@ export class WaitingButtonDirective {
     }
 
     function onClickHandler(event) {
-      if (event) { event.preventDefault(); }
+      if (event) {
+        event.preventDefault();
+      }
 
-      $scope.ctrl$.startAction();
+      $scope.$ctrl.startAction();
     }
 
     function determineWaitingClass() {
       let styleClass = WaitingButtonController.WAITING_CLASS;
 
-      if (typeof $scope.waitingClass === 'string') {
+      if (typeof $scope.waitingClass === "string") {
         // Override the default if a custom waiting class has been provided.
         styleClass = $scope.waitingClass;
       }
@@ -104,12 +105,10 @@ export class WaitingButtonDirective {
 
 export class WaitingButtonController {
   constructor($scope) {
-    var vm = this,
-        stateChangeListeners = [],
-        currentState = 'init';
+    var vm = this, stateChangeListeners = [], currentState = "init";
 
     vm.addStateChangeListener = function addStateChangeListener(newListener) {
-       stateChangeListeners.push(newListener);
+      stateChangeListeners.push(newListener);
     };
 
     vm.getState = function getState() {
@@ -117,7 +116,7 @@ export class WaitingButtonController {
     };
 
     vm.startAction = function startAction() {
-      if (vm.getState() === 'wait') {
+      if (vm.getState() === "wait") {
         // Action already in progress, ignore action request.
         return;
       }
@@ -125,14 +124,14 @@ export class WaitingButtonController {
       // Execute the action, and capture the (expected) returned promise.
       var actionQ = $scope.actionReceiver();
 
-      updateState('wait');
+      updateState("wait");
 
       actionQ
         .then(function() {
-          updateState('success');
+          updateState("success");
         })
         .catch(function() {
-          updateState('error');
+          updateState("error");
         });
     };
 
@@ -151,4 +150,4 @@ export class WaitingButtonController {
     }
   }
 }
-WaitingButtonController.WAITING_CLASS = 'mbm-waiting-button--waiting';
+WaitingButtonController.WAITING_CLASS = "mbm-waiting-button--waiting";
