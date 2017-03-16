@@ -1,38 +1,30 @@
 {
-  "name": "angular-waiting-button",
+  "name": "angular-waiting-button-example",
   "version": "1.0.0",
-  "description": "Angular 1 Waiting Button",
-  "main": "dist/angular-waiting-button.js",
-  "dependencies": {},
+  "description": "Angular 1 Waiting Button Example",
+  "main": "dist/main.js",
+  "dependencies": {
+  },
   "devDependencies": {
     "angular": "^1.6.3",
-    "angular-mocks": "^1.6.3",
+    "angular-waiting-button": "file:../",
     "babel-core": "^6.24.0",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.0.1",
     "css-loader": "^0.23.1",
-    "jasmine-core": "^2.4.1",
-    "karma": "^1.0.0",
-    "karma-babel-preprocessor": "^6.0.1",
-    "karma-browserify": "^5.0.5",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^1.0.2",
-    "karma-phantomjs-launcher": "^1.0.1",
-    "karma-webpack": "^2.0.3",
+    "html-webpack-plugin": "^2.15.0",
     "node-sass": "^3.10.1",
     "rimraf": "^2.6.1",
     "sass-loader": "^3.2.3",
     "style-loader": "^0.13.1",
-    "watchify": "^3.7.0",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
   },
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
-    "test": "karma start"
+    "server": "webpack-dev-server --history-api-fallback --inline --progress"
   },
   "repository": {
     "type": "git",
