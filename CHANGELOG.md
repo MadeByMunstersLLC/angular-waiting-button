@@ -4,6 +4,9 @@
 
 Bug fixes.
 
+### Added
+- Examples of using waitingButtonText directive in demo-app.
+
 ### Changed
 - Gives more intuitive name to waitingButtonText state config attribute.
 - Ignores demo-app dist folder.
