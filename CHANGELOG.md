@@ -1,5 +1,21 @@
 # Change Log
 
+## 2.0.1
+
+Bug fixes.
+
+### Added
+- Examples of using waitingButtonText directive in demo-app.
+
+### Changed
+- Gives more intuitive name to waitingButtonText state config attribute.
+- Ignores demo-app dist folder.
+
+### Fixed
+- Fixes inaccurate build entry point file path.
+- Makes `angular` a production dependency of the demo-app.
+- Removes implicit jQuery dependency and fixes waitingButtonText registration call.
+
 
 ## 2.0.0
 
