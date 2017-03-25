@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.0.1
+
+Bug fixes.
+
+### Fixed
+- Fixes inaccurate build entry point file path.
+
 
 ## 2.0.0
 
