@@ -4,9 +4,13 @@
 
 Bug fixes.
 
+### Changed
+- Gives more intuitive name to waitingButtonText state config attribute.
+
 ### Fixed
 - Fixes inaccurate build entry point file path.
 - Makes `angular` a production dependency of the demo-app.
+- Removes implicit jQuery dependency and fixes waitingButtonText registration call.
 
 
 ## 2.0.0
