@@ -6,6 +6,7 @@ Bug fixes.
 
 ### Fixed
 - Fixes inaccurate build entry point file path.
+- Makes `angular` a production dependency of the demo-app.
 
 
 ## 2.0.0

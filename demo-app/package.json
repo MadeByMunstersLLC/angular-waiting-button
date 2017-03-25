@@ -4,9 +4,9 @@
   "description": "Angular 1 Waiting Button Example",
   "main": "dist/main.js",
   "dependencies": {
+    "angular": "^1.6.3"
   },
   "devDependencies": {
-    "angular": "^1.6.3",
     "angular-waiting-button": "file:../",
     "babel-core": "^6.24.0",
     "babel-eslint": "^6.0.2",
