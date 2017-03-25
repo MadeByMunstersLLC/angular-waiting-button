@@ -6,6 +6,7 @@ Bug fixes.
 
 ### Changed
 - Gives more intuitive name to waitingButtonText state config attribute.
+- Ignores demo-app dist folder.
 
 ### Fixed
 - Fixes inaccurate build entry point file path.
